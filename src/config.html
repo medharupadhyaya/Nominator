@@ -1,0 +1,29 @@
+ <html>
+<body>
+<form>
+  <input type="button" name="maptype" value="bing" onclick="onClick()"> Initiatives<br>
+</form> 
+
+<script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
+
+<script type="text/javascript">  
+
+microsoftTeams.initialize();
+microsoftTeams.settings.registerOnSaveHandler(function(saveEvent){
+	microsoftTeams.settings.setSettings({
+         entityId: "Initiatives",
+         contentUrl: "https://focv2ui.azurewebsites.net/",
+         suggestedDisplayName: "Intiatives",
+         websiteUrl: "https://focv2ui.azurewebsites.net/",
+         removeUrl: "https://teams-get-started-sample.azurewebsites.net/tabremove.html",
+      });
+    saveEvent.notifySuccess();
+});
+
+function onClick() {
+    microsoftTeams.settings.setValidityState(true);
+}
+
+</script>
+</body>
+</html>
