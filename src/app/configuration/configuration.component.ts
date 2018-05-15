@@ -12,7 +12,7 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit() {
     microsoftTeams.initialize();
-    microsoftTeams.settings.registerOnSaveHandler(this.save);
+
   }
 
   save = (saveEvent: microsoftTeams.settings.SaveEvent) => {
@@ -27,6 +27,7 @@ export class ConfigurationComponent implements OnInit {
     console.log('saved');
   }
   confirm() {
+    microsoftTeams.settings.registerOnSaveHandler(this.save);
     microsoftTeams.settings.setValidityState(true);
   }
 
