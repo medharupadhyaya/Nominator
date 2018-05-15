@@ -13,6 +13,8 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit() {
 }
 
-
+  confirm() {
+    microsoftTeams.settings.setValidityState(true);
+  }
 
 }
