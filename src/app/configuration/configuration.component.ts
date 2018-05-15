@@ -18,9 +18,9 @@ export class ConfigurationComponent implements OnInit {
   save = (saveEvent: microsoftTeams.settings.SaveEvent) => {
       microsoftTeams.settings.setSettings({
       entityId: 'Nominator',
-      contentUrl: 'https://nominator1.azurewebsites.net/config',
+      contentUrl: 'https://nominator1.azurewebsites.net/nominate',
       suggestedDisplayName: 'nominator',
-      websiteUrl: 'https://nominator1.azurewebsites.net/config',
+      websiteUrl: 'https://nominator1.azurewebsites.net/nominate',
       removeUrl: 'https://teams-get-started-sample.azurewebsites.net/tabremove.html',
     });
     saveEvent.notifySuccess();
