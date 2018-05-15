@@ -12,18 +12,20 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit() {
     microsoftTeams.initialize();
-    microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
-      microsoftTeams.settings.setSettings({
-        entityId: 'Nominator',
-        contentUrl: 'https://nominator1.azurewebsites.net/config',
-        suggestedDisplayName: 'nominator',
-        websiteUrl: 'https://nominator1.azurewebsites.net/config',
-        removeUrl: 'https://teams-get-started-sample.azurewebsites.net/tabremove.html',
-      });
-      saveEvent.notifySuccess();
-    });
+    microsoftTeams.settings.registerOnSaveHandler(this.save);
   }
 
+  save = (saveEvent: microsoftTeams.settings.SaveEvent) => {
+      microsoftTeams.settings.setSettings({
+      entityId: 'Nominator',
+      contentUrl: 'https://nominator1.azurewebsites.net/config',
+      suggestedDisplayName: 'nominator',
+      websiteUrl: 'https://nominator1.azurewebsites.net/config',
+      removeUrl: 'https://teams-get-started-sample.azurewebsites.net/tabremove.html',
+    });
+    saveEvent.notifySuccess();
+    console.log('saved');
+  }
   confirm() {
     microsoftTeams.settings.setValidityState(true);
   }
