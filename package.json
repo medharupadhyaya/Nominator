@@ -4,7 +4,6 @@
   "license": "Mindtree",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test"
   },
