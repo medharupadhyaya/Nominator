@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule, Http } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { NominateComponent } from './nominate/nominate.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { HttpServiceService } from './services/http-service.service';
 
 const appRoutes: Routes = [
   { path: 'nominate', component: NominateComponent },
@@ -22,9 +24,10 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes
-    )
+    ),
+    HttpModule
   ],
-  providers: [],
+  providers: [HttpServiceService],
   bootstrap: [AppComponent]
 })
 
