@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  AppUrl: 'https://futureofworkheadlessservice.azurewebsites.net/api/TeamsInformation'
+  AppUrl: 'http://localhost:1737'
 };

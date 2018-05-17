@@ -4,6 +4,10 @@ import { HttpServiceService } from '../services/http-service.service';
 import { environment } from '../../environments/environment';
 import { TeamInformation } from '../models/TeamInformation';
 import { User } from '../models/UserInformation';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
+import { Nominationrequest } from '../models/NominatioRequest';
+
 
 @Component({
   selector: 'app-nominate',
@@ -13,15 +17,13 @@ import { User } from '../models/UserInformation';
 export class NominateComponent implements OnInit {
 
   teamId;
-  channelId;
   teamName;
-  channelName;
   UPN;
   groupId;
   show = false;
   teammembers: User[];
 
-  constructor(private _httpService: HttpServiceService) { }
+  constructor(private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
 
   ngOnInit() {
     microsoftTeams.initialize();
@@ -29,17 +31,40 @@ export class NominateComponent implements OnInit {
   }
 
   showContext = (Context: microsoftTeams.Context) => {
-    this.teamId = Context.teamId;
     this.teamName = Context.teamName;
     this.groupId = Context.groupId;
     this.UPN = Context.upn;
     this.show = true;
-    console.log(Context);
     const teamInfo = new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
-    this._httpService.post(environment.AppUrl, teamInfo)
+    this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
     .subscribe(data => {
-                        console.log(data);
-                        // this.teammembers = data;
+                        this.teammembers = data;
                        });
   }
+
+  getdata() {
+    const teamInfo = new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
+    this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
+    .subscribe(data => {
+                        this.teammembers = data;
+                        this.show = true;
+                       });
+  }
+
+  Nominate(member) {
+    this.data.changeUser(member);
+    this.data.changeTeamID(this.teamId);
+    this.data.changeTeamName(this.teamName);
+    this.router.navigate(['/details']);
+  }
+
+  Confirm(member: User) {
+    const nominationRequest = new Nominationrequest(
+                              member.profile.userPrincipalName,
+                              this.teamId,
+                              this.teamName);
+    this._httpService.post(environment.AppUrl + '/api/Nomination', nominationRequest)
+    .subscribe(data => console.log(data));
+  }
+
 }
