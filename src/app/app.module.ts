@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'nominate', component: NominateComponent },
   { path: 'config', component: ConfigurationComponent},
   { path: 'details', component: UserdetailsComponent, data: User },
-  { path: '*', component: NominateComponent }
+  { path: '**', redirectTo: '/nominate', pathMatch: 'full'}
 ];
 
 @NgModule({
