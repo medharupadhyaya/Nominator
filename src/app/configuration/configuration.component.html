@@ -3,23 +3,3 @@
     <input type="button" name="nominate" value="validate" (click)="confirm()"> Nominate<br>
   </div> 
   
-  
-  
-<script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
-
-<script type="text/javascript">  
-
-microsoftTeams.initialize();
-microsoftTeams.settings.registerOnSaveHandler(function(saveEvent){
-	microsoftTeams.settings.setSettings({
-         entityId: "Nominator",
-         contentUrl: "https://nominator1.azurewebsites.net/config",
-         suggestedDisplayName: "nominator",
-         websiteUrl: "https://nominator1.azurewebsites.net/config",
-         removeUrl: "https://teams-get-started-sample.azurewebsites.net/tabremove.html",
-      });
-    saveEvent.notifySuccess();
-});
-
-</script>
- 
