@@ -61,7 +61,7 @@ export class NominateComponent implements OnInit {
   Confirm(member: User) {
     const nominationRequest = new Nominationrequest(
                               member.profile.userPrincipalName,
-                              this.teamId,
+                              this.groupId,
                               this.teamName);
     this._httpService.post(environment.AppUrl + '/api/Nomination', nominationRequest)
     .subscribe(data => console.log(data));
