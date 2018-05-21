@@ -22,7 +22,6 @@ export class NominateComponent implements OnInit, AfterViewInit {
   groupId;
   show = false;
   teammembers: User[];
-  timeout = 5;
   constructor(private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.getdata();
         console.log('inside timer');
-      }, 10000);
+      }, 5000);
     }
   }
 
@@ -65,7 +64,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
 
   Nominate(member) {
     this.data.changeUser(member);
-    this.data.changeTeamID(this.teamId);
+    this.data.changeTeamID(this.groupId);
     this.data.changeTeamName(this.teamName);
     this.router.navigate(['/details']);
   }
