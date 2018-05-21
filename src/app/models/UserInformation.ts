@@ -41,7 +41,7 @@ export class Rating {
 
 export class Skills {
     name: string;
-    profeciency: string;
+    proficiency: string;
 }
 
 export class Contributions {

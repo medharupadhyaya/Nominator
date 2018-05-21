@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as microsoftTeams from '@microsoft/teams-js';
 import { HttpServiceService } from '../services/http-service.service';
 import { environment } from '../../environments/environment';
@@ -14,7 +14,7 @@ import { Nominationrequest } from '../models/NominatioRequest';
   templateUrl: './nominate.component.html',
   styleUrls: ['./nominate.component.css']
 })
-export class NominateComponent implements OnInit {
+export class NominateComponent implements OnInit, AfterViewInit {
 
   teamId;
   teamName;
@@ -22,12 +22,22 @@ export class NominateComponent implements OnInit {
   groupId;
   show = false;
   teammembers: User[];
-
+  timeout = 5;
   constructor(private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
 
   ngOnInit() {
     microsoftTeams.initialize();
     microsoftTeams.getContext(this.showContext);
+    this._httpService.get(environment.AppUrl + '/api/teams').subscribe(data => { });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.teammembers === null || this.teammembers === undefined) {
+      setTimeout(() => {
+        this.getdata();
+        console.log('inside timer');
+      }, 10000);
+    }
   }
 
   showContext = (Context: microsoftTeams.Context) => {
@@ -37,18 +47,20 @@ export class NominateComponent implements OnInit {
     this.show = true;
     const teamInfo = new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
     this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
-    .subscribe(data => {
-                        this.teammembers = data;
-                       });
+      .subscribe(data => {
+        this.teammembers = data;
+        this.show = true;
+      });
   }
 
   getdata() {
-    const teamInfo = new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
+    const teamInfo =
+      new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
     this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
-    .subscribe(data => {
-                        this.teammembers = data;
-                        this.show = true;
-                       });
+      .subscribe(data => {
+        this.teammembers = data;
+        this.show = true;
+      });
   }
 
   Nominate(member) {
@@ -60,11 +72,11 @@ export class NominateComponent implements OnInit {
 
   Confirm(member: User) {
     const nominationRequest = new Nominationrequest(
-                              member.profile.userPrincipalName,
-                              this.groupId,
-                              this.teamName);
+      member.profile.userPrincipalName,
+      this.groupId,
+      this.teamName);
     this._httpService.post(environment.AppUrl + '/api/Nomination', nominationRequest)
-    .subscribe(data => console.log(data));
+      .subscribe(data => console.log(data));
   }
 
 }

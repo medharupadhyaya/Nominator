@@ -1,59 +1,97 @@
-<button mat-raised-button (click)="Back()">
+<div class="btn-group" >
+<button mat-raised-button (click)="Back()" style="margin: 0px 10px">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<mat-grid-list cols="5" rowHeight="100px">
-  <mat-grid-tile colspan="3" rowspan="2" >
+<button mat-raised-button type="button" style="margin: 0px 10px" (click)="Nominate()">Nominate</button>
+</div>
+<div class="row" style="margin:auto">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 bg-light">
     <div class="row">
-      <div class="text-left col">
-        <h2>{{user.profile.displayName}}</h2>
-        {{user.profile.mail}} {{user.profile.mobilePhone}}
-      </div>
-      <div class="text-right col">
-        <h5>{{user.profile.jobTitle}}</h5>
-        <p>{{user.profile.officeLocation}}</p>
-      </div>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="5">
-      <img [src]="imageToShow"
-      alt="Place image title"
-      *ngIf="!isImageLoading; else noImageFound">
- <ng-template #noImageFound>
-      no image
- </ng-template>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="3">
-    <div class="btn-group-vertical">
-      <button mat-raised-button class="customChip" style="background: rgb(63, 81, 181)">Trainings</button>
-      <button mat-raised-button class="customChip" style="background: rgb(255, 64, 129)">Ratings</button>
-      <button mat-raised-button class="customChip" style="background: #4CAF50;">Skills</button>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="3">
-    <div class="row">
-      <div class="col" *ngIf="training">
-        <mat-card *ngFor="let training of user.performance.training">
-          <mat-card-header>
-            <h4> {{training.courseName}}</h4>
-          </mat-card-header>
-          <mat-card-content>
-            <br>
-            <div class="progress blue">
-              <span class="progress-left">
-                <span class="progress-bar"></span>
-              </span>
-              <span class="progress-right">
-                <span class="progress-bar"></span>
-              </span>
-              <div class="progress-value">{{training.score}}%</div>
+      <mat-card style="width: 100%">
+        <section class="row">
+          <div class="col">
+            <img [src]="imageToShow" class="rounded img-thumbnail" height="250" width="200" alt="Place image title" *ngIf="!isImageLoading; else noImageFound">
+            <ng-template #noImageFound>
+              no image
+            </ng-template>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <blockquote>
+                  <h4>{{user.profile.displayName}}</h4>
+                  <h6>{{user.profile.jobTitle}}</h6>
+                  <mat-icon>person_pin</mat-icon>{{user.profile.officeLocation}}
+                </blockquote>
+                <mat-icon>phone</mat-icon>{{user.profile.mobilePhone}}
+                <br>
+                <mat-icon>mail_outline</mat-icon>{{user.profile.mail}}
+              </div>
             </div>
-            <div class="text-center">
-              Status : {{training.status}}
-              <br> Attempts : {{training.attempts}}
-            </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </section>
+      </mat-card>
+      <div class="row" style="margin: auto">
+        <div class="btn-group">
+          <button mat-raised-button class="customChip" (click)="training=true;skills=false;rating=false;" style="background: rgb(63, 81, 181);margin: 10px 20px">Trainings</button>
+          <button mat-raised-button class="customChip" (click)="rating=true;skills=false;training=false;" style="background: rgb(255, 64, 129);margin: 10px 20px">Ratings</button>
+          <button mat-raised-button class="customChip" (click)="skills=true;training=false;rating=false;" style="background: #4CAF50;;margin: 10px 20px">Skills</button>
+        </div>
       </div>
     </div>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<div class="row">
+  <div class="col" *ngIf="training">
+    <mat-card *ngFor="let training of user.performance.training" style="min-width: 200px;width:20%;margin: auto;">
+      <mat-card-header>
+        <h4 style="text-align: -webkit-center;"> {{training.courseName}}</h4>
+      </mat-card-header>
+      <mat-card-content>
+        <br>
+        <div class="progress blue">
+          <span class="progress-left">
+            <span class="progress-bar"></span>
+          </span>
+          <span class="progress-right">
+            <span class="progress-bar"></span>
+          </span>
+          <div class="progress-value">{{training.score}}%</div>
+        </div>
+        <div class="text-center">
+          Status : {{training.status}}
+          <br> Attempts : {{training.attempts}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col" *ngIf="rating">
+    <mat-card *ngFor="let rating of user.performance.rating" style="min-width: 200px;width:20%;margin: auto;text-align: center">
+      <mat-card-header class="text-center">
+        <h4 style="margin:auto"> {{rating.year}}</h4>
+      </mat-card-header>
+      <mat-card-content>
+        <br>
+        <div class="circleCustom">
+          {{rating.result}}
+        </div>
+        <br>
+        <article class="text-center">
+           {{rating.comments}}
+          </article>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col" *ngIf="skills" style="margin: auto;max-width: 500px;">
+    <section class="row">
+      <mat-card *ngFor="let skill of user.performance.skills" 
+      style="min-width: 100px;width:200px;margin: auto;">
+        <mat-card-header class="text-center">
+          <h6>{{skill.name}}</h6>
+        </mat-card-header>
+      </mat-card>
+    </section>
+    </div>
+</div>

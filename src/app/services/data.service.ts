@@ -20,9 +20,11 @@ export class DataService {
 
   changeTeamID(teamid: string) {
     this.TeamID.next(teamid);
+    this.currentTeamID.subscribe(data => console.log(data));
   }
 
   changeTeamName(teamname: string) {
     this.TeamName.next(teamname);
+    this.currentTeamName.subscribe(data => console.log(data));
   }
 }

@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DataService } from '../services/data.service';
 import { HttpServiceService } from '../services/http-service.service';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
+import { Nominationrequest } from '../models/NominatioRequest';
 
 @Component({
   selector: 'app-userdetails',
@@ -23,6 +24,7 @@ export class UserdetailsComponent implements OnInit {
 
   ngOnInit() {
     this.data.currentMessage.subscribe(data => this.user = data);
+    console.log(this.user);
     this.getImageFromService();
   }
 
@@ -51,4 +53,16 @@ export class UserdetailsComponent implements OnInit {
       console.log(error);
     });
 }
+
+  Nominate() {
+    let teamId, teamname;
+    this.data.currentTeamID.subscribe(data => teamId = data);
+    this.data.currentTeamName.subscribe(data => teamname = data);
+    const nominationRequest = new Nominationrequest(
+      this.user.profile.userPrincipalName,
+      teamId,
+      teamname);
+      this.http.post(environment.AppUrl + '/api/Nomination', nominationRequest)
+      .subscribe(data => console.log(data));
+  }
 }
