@@ -1,9 +1,17 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top" style="justify-content: center;">
+  <div >
+  <form class="form-inline" action="/action_page.php" >
+    <input style="text-align: center" matInput [(ngModel)]="searchText" class="form-control mr-sm-2" name="searchText" placeholder="Search" type="text">
+  </form>
+</div>
+</nav>
+<br>
 <div *ngIf="!show" class="row">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="show" class="row">
 
-<mat-card class="col" *ngFor="let member of teammembers" style="max-width: 30%;min-width: 300px;margin: 20px 20px;cursor: pointer;">
+<mat-card class="col" *ngFor="let member of teammembers | searchMember : searchText" style="max-width: 30%;min-width: 300px;margin: 20px 20px;cursor: pointer;">
   <mat-card-header >
     <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
     <mat-card-title>{{member.profile.displayName}}</mat-card-title>

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
 import {
@@ -11,7 +12,8 @@ import {
   MatIconModule,
   MatCardModule,
   MatProgressSpinnerModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatInputModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { HttpServiceService } from './services/http-service.service';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { User } from './models/UserInformation';
 import { DataService } from './services/data.service';
+import { SearchMemberPipe } from './pipes/search-member.pipe';
 
 const appRoutes: Routes = [
   { path: 'nominate', component: NominateComponent },
@@ -34,11 +37,14 @@ const appRoutes: Routes = [
     AppComponent,
     NominateComponent,
     ConfigurationComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    SearchMemberPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     CdkTableModule,
     RouterModule.forRoot(
       appRoutes
@@ -50,7 +56,8 @@ const appRoutes: Routes = [
     MatIconModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatInputModule
   ],
   providers: [
     HttpServiceService,

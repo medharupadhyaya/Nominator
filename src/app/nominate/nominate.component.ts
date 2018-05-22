@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Nominationrequest } from '../models/NominatioRequest';
 
-
 @Component({
   selector: 'app-nominate',
   templateUrl: './nominate.component.html',
@@ -22,6 +21,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
   groupId;
   show = false;
   teammembers: User[];
+  searchText;
   constructor(private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
 
   ngOnInit() {
