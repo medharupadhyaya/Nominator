@@ -5,13 +5,13 @@
 <button mat-raised-button type="button" style="margin: 0px 10px" (click)="Nominate()">Nominate</button>
 </div>
 <div class="row" style="margin:auto">
-  <div class="col-md-2"></div>
-  <div class="col-md-8 bg-light">
+  <div class="col-md-1"></div>
+  <div class="col-md-10 bg-light">
     <div class="row">
       <mat-card style="width: 100%">
         <section class="row">
           <div class="col">
-            <img [src]="imageToShow" class="rounded" height="250" width="200" alt="Place image title" *ngIf="!isImageLoading; else noImageFound">
+            <img [src]="imageToShow" class="rounded img-thumbnail" height="250" width="200" alt="Place image title" *ngIf="!isImageLoading; else noImageFound">
             <ng-template #noImageFound>
               no image
             </ng-template>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-2"></div>
+  <div class="col-md-1"></div>
 </div>
 <div class="row">
   <div class="col" *ngIf="training">

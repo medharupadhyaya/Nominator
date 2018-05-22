@@ -15,7 +15,7 @@ import {
   MatProgressBarModule,
   MatInputModule
 } from '@angular/material';
-
+import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AppComponent } from './app.component';
 import { NominateComponent } from './nominate/nominate.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
@@ -49,6 +49,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
     ),
+    SimpleNotificationsModule.forRoot(),
     HttpClientModule,
     MatDividerModule,
     MatGridListModule,

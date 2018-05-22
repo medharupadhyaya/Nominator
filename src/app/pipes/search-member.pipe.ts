@@ -13,7 +13,7 @@ export class SearchMemberPipe implements PipeTransform {
       return Users;
   } else {
     return Users.filter( all => {
-      return all.profile.displayName.toLowerCase().includes(searchText);
+      return all.profile.displayName.toLowerCase().includes(searchText.toLowerCase());
     });
   }
   }

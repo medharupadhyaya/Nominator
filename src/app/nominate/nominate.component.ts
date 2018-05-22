@@ -7,6 +7,8 @@ import { User } from '../models/UserInformation';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Nominationrequest } from '../models/NominatioRequest';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-nominate',
@@ -18,11 +20,12 @@ export class NominateComponent implements OnInit, AfterViewInit {
   teamId;
   teamName;
   UPN;
-  groupId;
+  groupId = '2cf1af8e-01ea-418c-911c-8ed6ee44d18e';
   show = false;
   teammembers: User[];
   searchText;
-  constructor(private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
+  constructor(private notif: NotificationsService,
+    private _httpService: HttpServiceService, private router: Router, private data: DataService) { }
 
   ngOnInit() {
     microsoftTeams.initialize();
@@ -47,7 +50,9 @@ export class NominateComponent implements OnInit, AfterViewInit {
     this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
       .subscribe(data => {
         this.teammembers = data;
+        if (this.teammembers !== null) {
         this.show = true;
+        }
       });
   }
 
@@ -74,7 +79,20 @@ export class NominateComponent implements OnInit, AfterViewInit {
       this.groupId,
       this.teamName);
     this._httpService.post(environment.AppUrl + '/api/Nomination', nominationRequest)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.notif.success(
+          'Success',
+          'Successfully nominated',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: true,
+            clickToClose: true,
+            maxLength: 50
+          }
+        );
+       });
   }
 
 }

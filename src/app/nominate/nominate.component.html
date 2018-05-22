@@ -6,7 +6,7 @@
 </div>
 </nav>
 <br>
-<div *ngIf="!show" class="row">
+<div *ngIf="teammembers != null || !show" class="row">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div *ngIf="show" class="row">
