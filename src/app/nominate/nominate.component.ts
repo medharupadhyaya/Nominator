@@ -34,8 +34,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
     if (this.teammembers === null || this.teammembers === undefined) {
       setTimeout(() => {
         this.getdata();
-        console.log('inside timer');
-      }, 5000);
+      }, 4000);
     }
   }
 

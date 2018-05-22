@@ -1,3 +1,6 @@
+<div *ngIf="!show" class="row">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
 <div *ngIf="show" class="row">
 
 <mat-card class="col" *ngFor="let member of teammembers" style="max-width: 30%;min-width: 300px;margin: 20px 20px;cursor: pointer;">

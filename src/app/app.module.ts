@@ -10,7 +10,8 @@ import {
   MatButtonModule,
   MatIconModule,
   MatCardModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [
     HttpServiceService,
