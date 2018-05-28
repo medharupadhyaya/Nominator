@@ -6,6 +6,7 @@ import { DataService } from '../services/data.service';
 import { HttpServiceService } from '../services/http-service.service';
 import { environment } from '../../environments/environment';
 import { Nominationrequest } from '../models/NominatioRequest';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-userdetails',
@@ -20,7 +21,8 @@ export class UserdetailsComponent implements OnInit {
   skills = false;
   imageToShow: any;
   isImageLoading = false;
-  constructor(private router: Router, private data: DataService, private http: HttpServiceService) { }
+  constructor(private notif: NotificationsService,
+    private router: Router, private data: DataService, private http: HttpServiceService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(data => this.user = data);
@@ -64,5 +66,16 @@ export class UserdetailsComponent implements OnInit {
       teamname);
       this.http.post(environment.AppUrl + '/api/Nomination', nominationRequest)
       .subscribe(data => console.log(data));
+      this.notif.success(
+        'Success',
+        'Successfully nominated',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: true,
+          clickToClose: true,
+          maxLength: 50
+        }
+      );
   }
 }
