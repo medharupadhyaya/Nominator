@@ -92,6 +92,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
             maxLength: 50
           }
         );
+        this.teammembers = this.teammembers.filter(user => user !== member);
        });
   }
 
