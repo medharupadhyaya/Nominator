@@ -19,6 +19,7 @@ export class UserdetailsComponent implements OnInit {
   training = true;
   rating = false;
   skills = false;
+  projects = false;
   imageToShow: any;
   isImageLoading = false;
   constructor(private notif: NotificationsService,

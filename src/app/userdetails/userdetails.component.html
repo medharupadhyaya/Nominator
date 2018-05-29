@@ -1,10 +1,10 @@
-<div class="btn-group" >
-<button mat-raised-button (click)="Back()" style="margin: 0px 10px">
-  <mat-icon>arrow_back</mat-icon>
-</button>
-<button mat-raised-button type="button" style="margin: 0px 10px" (click)="Nominate()">Nominate</button>
+<div class="btn-group">
+  <button mat-raised-button (click)="Back()" style="margin: 0px 10px">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button mat-raised-button type="button" style="margin: 0px 10px" (click)="Nominate()">Nominate</button>
 </div>
-<div class="row" style="margin:auto">
+<div class="row" style="margin: 25px auto">
   <div class="col-md-1"></div>
   <div class="col-md-10 bg-light">
     <div class="row">
@@ -34,9 +34,10 @@
       </mat-card>
       <div class="row" style="margin: auto">
         <div class="btn-group">
-          <button mat-raised-button class="customChip" (click)="training=true;skills=false;rating=false;" style="background: rgb(63, 81, 181);margin: 10px 20px">Trainings</button>
-          <button mat-raised-button class="customChip" (click)="rating=true;skills=false;training=false;" style="background: rgb(255, 64, 129);margin: 10px 20px">Ratings</button>
-          <button mat-raised-button class="customChip" (click)="skills=true;training=false;rating=false;" style="background: #4CAF50;;margin: 10px 20px">Skills</button>
+          <button mat-raised-button class="customChip" (click)="training=true;skills=false;rating=false;projects=false;" style="background: rgb(63, 81, 181);margin: 10px 20px">Trainings</button>
+          <button mat-raised-button class="customChip" (click)="rating=true;skills=false;training=false;projects=false;" style="background: rgb(255, 64, 129);margin: 10px 20px">Ratings</button>
+          <button mat-raised-button class="customChip" (click)="skills=true;training=false;rating=false;projects=false;" style="background: #4CAF50;margin: 10px 20px">Skills</button>
+          <button mat-raised-button class="customChip" (click)="projects=true;skills=false;training=false;rating=false;" style="background: #20c997;margin: 10px 20px">Projects</button>
         </div>
       </div>
     </div>
@@ -45,7 +46,7 @@
 </div>
 <div class="row">
   <div class="col" *ngIf="training">
-    <mat-card *ngFor="let training of user.performance.training" style="min-width: 200px;width:20%;margin: auto;">
+    <mat-card *ngFor="let training of user.performance.training" class="zoom" style="min-width: 200px;width:20%;margin: auto;cursor: pointer;">
       <mat-card-header>
         <h4 style="text-align: -webkit-center;"> {{training.courseName}}</h4>
       </mat-card-header>
@@ -68,7 +69,7 @@
     </mat-card>
   </div>
   <div class="col" *ngIf="rating">
-    <mat-card *ngFor="let rating of user.performance.rating" style="min-width: 200px;width:20%;margin: auto;text-align: center">
+    <mat-card *ngFor="let rating of user.performance.rating" class="zoom" style="min-width: 200px;width:20%;margin: auto;text-align: center;cursor: pointer;">
       <mat-card-header class="text-center">
         <h4 style="margin:auto"> {{rating.year}}</h4>
       </mat-card-header>
@@ -79,19 +80,39 @@
         </div>
         <br>
         <article class="text-center">
-           {{rating.comments}}
-          </article>
+          {{rating.comments}}
+        </article>
       </mat-card-content>
     </mat-card>
   </div>
   <div class="col" *ngIf="skills" style="margin: auto;max-width: 500px;">
     <section class="row">
-      <mat-card *ngFor="let skill of user.performance.skills" 
-      style="min-width: 100px;width:200px;margin: auto;">
+      <mat-card *ngFor="let skill of user.performance.skills" class="zoom" style="min-width: 100px;width:200px;margin: auto;cursor: pointer;">
         <mat-card-header class="text-center">
           <h6>{{skill.name}}</h6>
         </mat-card-header>
       </mat-card>
     </section>
-    </div>
+  </div>
+  <div class="col" *ngIf="projects">
+    <mat-card *ngFor="let project of user.domain.project" class="zoom" style="min-width: 200px;width:20%;margin: auto;text-align: center;background: #c9d1d4;cursor: pointer;">
+      <mat-card-header class="text-center">
+        <h4 style="margin:auto"> {{project.name}}</h4>
+      </mat-card-header>
+      <mat-card-content>
+        <br>
+        <div>
+          <h5>{{project.domain}}</h5>
+        </div>
+        <article>
+          {{project.role}}
+        </article>
+        <br>
+        <article>
+          {{project.duration}}
+        </article>
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

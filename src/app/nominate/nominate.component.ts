@@ -20,7 +20,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
   teamId;
   teamName;
   UPN;
-  groupId = '2cf1af8e-01ea-418c-911c-8ed6ee44d18e';
+  groupId;
   show = false;
   teammembers: User[];
   searchText;
@@ -36,6 +36,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.teammembers === null || this.teammembers === undefined) {
       setTimeout(() => {
+        console.log('getting data');
         this.getdata();
       }, 4000);
     }
@@ -50,7 +51,7 @@ export class NominateComponent implements OnInit, AfterViewInit {
     this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
       .subscribe(data => {
         this.teammembers = data;
-        if (this.teammembers !== null) {
+        if (this.teammembers !== null || this.teammembers !== undefined) {
         this.show = true;
         }
       });
@@ -58,7 +59,9 @@ export class NominateComponent implements OnInit, AfterViewInit {
 
   getdata() {
     const teamInfo =
-      new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
+    // tslint:disable-next-line:max-line-length
+    // new TeamInformation('acaa3901-0fda-4fcd-ad08-13a1f1844922', 'On Boarding 2018', 'On Boarding 2018', 'Vikas.Sharma@vikasdev.onmicrosoft.com');
+       new TeamInformation(this.groupId, this.teamName, this.teamName, this.UPN);
     this._httpService.post(environment.AppUrl + '/api/teamsInformation', teamInfo)
       .subscribe(data => {
         this.teammembers = data;
