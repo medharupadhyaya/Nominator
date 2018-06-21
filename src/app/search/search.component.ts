@@ -94,8 +94,7 @@ export class SearchComponent implements OnInit {
     console.log("go clicked");
     this.searchResults = null;
     this.userMessage = "Searching Teams! Please Wait";
-    //document.getElementById("toggle").style.visibility="visible";
-    //document.getElementById("toggleError").style.visibility="hidden";
+    
     (document.getElementById("search") as HTMLButtonElement).disabled = true;
     if (this.searchForm.get("searchBy").value == "Title") {
       var searchtext = this.searchForm.get("searchText").value;
@@ -104,7 +103,7 @@ export class SearchComponent implements OnInit {
         this.searchResults = data;
         this.userMessage = "";
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
-        // document.getElementById("toggle").style.visibility="hidden";
+        
 
         console.log(this.searchResults);
         console.log("count:" + this.searchResults.length);
@@ -115,8 +114,7 @@ export class SearchComponent implements OnInit {
         console.log(error);
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
         this.userMessage = "Error occured! Please try again later";
-        //document.getElementById("toggle").style.visibility="hidden";
-        //document.getElementById("toggleError").style.visibility="visible";
+        
       });
       console.log("out of subscribe");
     }
@@ -127,7 +125,7 @@ export class SearchComponent implements OnInit {
         this.userMessage = "";
         this.searchResults = data;
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
-        //   document.getElementById("toggle").style.visibility="hidden";
+       
 
         console.log(this.searchResults);
         console.log("count:" + this.searchResults.length);
@@ -137,8 +135,7 @@ export class SearchComponent implements OnInit {
         console.log(error);
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
         this.userMessage = "Error occured! Please try again later";
-        //document.getElementById("toggle").style.visibility="hidden";
-        //document.getElementById("toggleError").style.visibility="visible";
+        
       });
       console.log("out of subscribe");
     }
