@@ -1,0 +1,164 @@
+<div style="height:20px">
+
+</div>
+<div class="container" style="font-family:Times New Roman;font-size:14px">
+<div class="row" style="margin:5px;padding:5px">
+
+    <div class="offset-lg-3 col-lg-6  offset-md-3 col-md-6 col-sm-12 col-12" >
+    <form [formGroup]="searchForm" >
+      <div class="row form-group" >
+          <div class="col-lg-6 col-md-6">
+              
+               <input  type="text" class="form-control controls" formControlName="searchText" placeholder="Search text goes here"/>
+               <div class="alert alert-danger " *ngIf="searchForm.get('searchText').errors && (searchForm.get('searchText').dirty || searchForm.get('searchText').touched)">
+                   <div [hidden]= "!searchForm.get('searchText').hasError('required') ">
+                   Please enter search text
+                   </div>
+                 </div>
+             </div >
+  <div class=" col-lg-6 col-md-6" >
+  
+    <select class="form-control controls" formControlName="searchBy" style="height:34px" >
+      <option value="Title">Search by Keywords</option>
+      <option value="Author">Search by Author</option>
+    </select>
+  </div>
+
+  
+</div>
+<div class="form-group ">
+    <input type="button" title="Click here to search. Disabled? Please enter a search query" id="search" class="btn btn-default form-control controls buttonclass" value="GO" (click)="searchFunction()" [disabled]= "!(searchForm.get('searchText').dirty && searchForm.get('searchText').valid)"  />
+  </div>
+
+
+</form>
+
+</div>
+</div>
+
+<div class="row" >
+<br>
+
+<div  id="new"  class="offset-lg-2 col-lg-8" style="text-align:center">
+  {{  userMessage}}
+</div>
+
+<div *ngIf="searchResults && searchResults.length ==0" style="text-align:center" class="offset-lg-2 col-lg-8 offset-md-2 col-md-8">
+  No Matching Documents Found
+</div>
+<div *ngIf="searchResults && searchResults.length !=0" class="offset-lg-2 col-lg-8 offset-md-2 col-md-8 " >
+  
+<table class="table table-responsive">
+  
+  <tbody>
+    
+     <tr *ngFor="let search of searchResults" class="dispTr" >
+      
+     <td>
+       <div style="font-size:15px;cursor:pointer" (click)="view(search.Title,search.SPWebUrl,search.Path.substring(search.Path.indexOf('/sites/'),search.Path.length),search.HitHighlightedSummary)" data-toggle="modal" data-target="#myModal">
+        <b>{{search.Title}}</b>
+     </div>
+     <div>
+    
+     <i>  {{search.Path}} </i>
+     </div>
+     <br/>
+     <div *ngIf='search.HitHighlightedSummary!= "" '>
+       {{search.HitHighlightedSummary}}
+       <br/>
+     </div>
+    
+    </td>
+     
+     
+      </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header" >
+        <div class="text-center" style="color: rgb(70,71,117)">
+        <span style="font-size:16px"> <b> DETAILS </b></span>
+        </div>
+        <button type="button" class="close " (click)="clear()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+      
+       <div class="container">
+  
+<div class="row">
+
+    
+  <div class="col-md-12">
+    
+    <div *ngIf="!result" style="text-align:center">
+          Loading Data !! Please Wait..
+      </div>
+       <div class="card1">
+         <div class="row">
+         <div class="col-md-7">
+         <div *ngIf="result">
+           <div class="Words" style="font-size:16px;color:rgb(70,71,117)">
+            <b>{{currentTitle}}</b>
+           </div>
+           <br>
+           <div class="Words">
+           <b><i>Keywords  :</i></b>  {{result.listOfKeywords}}
+         </div>
+        <br>
+         
+         <div class="Words">
+          <b><i>Quick Glance :</i></b>
+         {{highlightedLines}}
+         </div>
+         
+         </div>
+
+       </div>
+    
+    <div class="col-md-5">
+     
+      <div class="card">
+         <div *ngIf="result">
+            <table class="table borderless">
+              <thead>
+                   <tr>
+                  <th colspan="2">Subject Matter Experts</th>
+                  
+                </tr>
+              </thead>
+
+                 <tbody>
+                <tr *ngFor="let r of result.listOfAuthors;let i =index">
+                  <td><img [src]="imageDisplay" class="rounded img-circle" width="42" height="42"></td>
+                  <td>{{r}}</td>
+                  
+                </tr>
+                 
+              </tbody>
+            </table>
+         </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default buttonclass" (click)="clear()" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  
+

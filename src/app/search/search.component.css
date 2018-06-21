@@ -1,0 +1,67 @@
+.controls
+{
+ border-color:rgb(70, 71, 117);
+}
+.buttonclass
+{
+    background-color: rgb(70, 71, 117);
+    color:white;
+}
+.buttonclass:disabled
+{
+    background-color: rgb(70, 71, 117);
+    opacity :.65;
+   
+}
+a 
+{
+    color:rgb(70, 71, 117);
+    text-decoration: none;
+}
+.dispTr:hover{
+   
+    background-color: 	#F8F8F8 ;
+    border-left:5px solid rgb(70, 71, 117);
+}
+.form-control, .btn
+{
+    height:34px;
+    font-size:14px;
+}
+.thClass
+{
+    color: rgb(70, 71, 117);
+}
+.modalTable
+{
+    /*text-align: center;*/
+    font-size: 13px;
+}
+.card
+{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  background-color:rgb(70,71,117);
+  border-radius: 2px;
+  color: white;
+  text-align: center;
+    font-size:13px;
+}
+.card1
+{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  background-color:white;
+  border-radius: 2px;
+  color: black;
+  text-align: center;
+  font-size: 13px;
+  
+}
+.modal-header{
+    text-align: center;
+}
+.Words
+{
+    font-family:serif;
+    font-size: 16px;
+   text-align: left;
+}

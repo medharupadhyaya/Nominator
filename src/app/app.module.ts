@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {Http,HttpModule} from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
+
 import {
   MatDividerModule,
   MatGridListModule,
@@ -23,12 +25,15 @@ import { HttpServiceService } from './services/http-service.service';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { User } from './models/UserInformation';
 import { DataService } from './services/data.service';
+import {SearchAndRetainService} from './Services/search-and-retain.service';
 import { SearchMemberPipe } from './pipes/search-member.pipe';
+import { SearchComponent } from './search/search.component';
 
 const appRoutes: Routes = [
   { path: 'nominate', component: NominateComponent },
   { path: 'config', component: ConfigurationComponent},
   { path: 'details', component: UserdetailsComponent, data: User },
+  {path: 'search', component:SearchComponent},
   { path: '*', redirectTo: '/nominate', pathMatch: 'full'}
 ];
 
@@ -38,7 +43,8 @@ const appRoutes: Routes = [
     NominateComponent,
     ConfigurationComponent,
     UserdetailsComponent,
-    SearchMemberPipe
+    SearchMemberPipe,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -58,11 +64,15 @@ const appRoutes: Routes = [
     MatCardModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatInputModule
+    MatInputModule,
+    HttpModule
   ],
   providers: [
     HttpServiceService,
-    DataService
+    DataService,
+    SearchAndRetainService,
+   
+    
   ],
   bootstrap: [AppComponent]
 })
