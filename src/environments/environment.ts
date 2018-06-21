@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  AppUrl: 'http://localhost:1737'
+  AppUrl: 'http://localhost:1737',
+  documentSearchAndRetainUrl:'http://localhost:53879',
+  smeUrl:'http://localhost:54983'
 };

@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse} from "@angular/common/http";
 import {RequestOptions,Headers} from '@angular/http';
 import { Observable } from "rxjs";
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class VersionsService {
 
   constructor(private http:HttpClient) { }
-  private url="http://localhost:54983//api/author";
+  private url=environment.smeUrl+"/api/author";
 
   postMethod(versionObject):Observable<any>{
     
