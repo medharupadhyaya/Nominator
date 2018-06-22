@@ -1,5 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as microsoftTeams from '@microsoft/teams-js';
 import { SearchAndRetainService } from '../Services/search-and-retain.service';
 import { VersionsService } from '../Services/versions.service';
 import { SearchStructure } from '../models/search-structure';
@@ -12,6 +13,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  teamId:string;
   searchResults: SearchStructure[];
   currentTitle: string;
   highlightedLines: string;
@@ -28,8 +30,13 @@ export class SearchComponent implements OnInit {
   );
 
   ngOnInit() {
-
-    }
+     microsoftTeams.initialize();
+    microsoftTeams.getContext(this.teamInformation);
+  }
+  teamInformation(context: microsoftTeams.Context)
+  {
+this.teamId=context.groupId;
+  }
   view(name1: string, siteURL1: string, serverRelativeURL1: string, highlight: string) {
     this.currentTitle = name1;
     this.highlightedLines = highlight;
@@ -99,7 +106,7 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.get("searchBy").value == "Title") {
       var searchtext = this.searchForm.get("searchText").value;
       console.log(searchtext);
-      this.serviceObj.SearchbyDocumentTitle(searchtext).subscribe(data => {
+      this.serviceObj.SearchbyDocumentTitle(searchtext,this.teamId).subscribe((data:any) => {
         this.searchResults = data;
         this.userMessage = "";
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
@@ -121,7 +128,7 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.get("searchBy").value == "Author") {
       var searchtext = this.searchForm.get("searchText").value;
       console.log(searchtext);
-      this.serviceObj.SearchbyAuthor(searchtext).subscribe(data => {
+      this.serviceObj.SearchbyAuthor(searchtext,this.teamId).subscribe((data:any )=> {
         this.userMessage = "";
         this.searchResults = data;
         (document.getElementById("search") as HTMLButtonElement).disabled = false;
